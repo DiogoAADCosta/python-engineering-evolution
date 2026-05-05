@@ -10,5 +10,5 @@ but progressively improving:
 - processing pipelines
 - dynamic systems
 
-- The exercises are intentionally structured to evolve
+The exercises are intentionally structured to evolve
 from simple implementations into scalability and design challenges.
