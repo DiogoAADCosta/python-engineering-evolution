@@ -11,4 +11,4 @@ but progressively improving:
 - dynamic systems
 
 The exercises are intentionally structured to evolve
-from simple implementations into scalability and design challenges.
+from simple implementations into scalability and software design challenges.
