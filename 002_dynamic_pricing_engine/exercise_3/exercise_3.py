@@ -1,62 +1,81 @@
 # ==================================================================================================
-# 70. Processamento de produtos com contexto (e-commerce)
+# 3. Product Processing with Context (E-commerce)
 # ==================================================================================================
 #
-# O sistema da loja deixou de trabalhar apenas com preços.
+# The store system no longer works only with prices.
 #
-# Agora cada produto possui:
+# Now each product contains:
 #
-# - nome
-# - categoria
-# - preço
+# - name
+# - category
+# - price
 #
-# Dados:
+# Data:
 #
-# produtos = [
-#     ('Notebook', 'tecnologia', 3500),
-#     ('Mouse', 'tecnologia', 120),
-#     ('Cadeira', 'moveis', 900),
-#     ('Mesa', 'moveis', 1200),
-#     ('Fone', 'tecnologia', 250)
+# products = [
+#     ('Notebook', 'technology', 3500),
+#     ('Mouse', 'technology', 120),
+#     ('Chair', 'furniture', 900),
+#     ('Desk', 'furniture', 1200),
+#     ('Headphones', 'technology', 250)
 # ]
 #
-# Novas regras:
+# New rules:
 #
-# - tecnologia → 15% desconto
-# - móveis → 5% desconto
+# - technology → 15% discount
+# - furniture → 5% discount
 #
-# O sistema deve gerar:
+# The system must generate:
 #
-# - uma nova estrutura contendo:
-#     - nome
-#     - categoria
-#     - preço original
-#     - preço final
+# - a new structure containing:
+#     - name
+#     - category
+#     - original price
+#     - final price
 #
-# Exibir:
-# - relatório atualizado
+# Display:
+# - updated report
 
-produtos = [
-    ('Notebook', 'tecnologia', 3500),
-    ('Mouse', 'tecnologia', 120),
-    ('Cadeira', 'moveis', 900),
-    ('Mesa', 'moveis', 1200),
-    ('Fone', 'tecnologia', 250)
+products = [
+    ('Notebook', 'technology', 3500),
+    ('Mouse', 'technology', 120),
+    ('Chair', 'furniture', 900),
+    ('Desk', 'furniture', 1200),
+    ('Headphones', 'technology', 250)
 ]
-produtos_atualizados = []
 
-desconto = lambda preco, categoria: preco * 0.85 if categoria == 'tecnologia' else preco * 0.95
+updated_products = []
 
-for produto in produtos:
-    nome, categoria, preco = produto
-    produtos_atualizados.append((nome, categoria, preco, desconto(preco, categoria)))
+discount = lambda price, category: price * 0.85 if category == 'technology' else price * 0.95
 
-print(produtos_atualizados)
+for product in products:
+    name, category, price = product
+    updated_products.append((name, category, price, discount(price, category)))
 
-# Eu poderia fazer dessa forma - mas não necessariamente é melhor pois começa a ficar muita coisa embolada. Lambda só vale a pena quando: a compactação NÃO prejudica a clareza
-produtos_atualizados = []
-for produto in produtos:
-    nome, categoria, preco = produto
-    produtos_atualizados.append((nome, categoria, preco, (lambda preco, categoria: preco * 0.85 if categoria == 'tecnologia' else preco * 0.95)(preco, categoria)))
+print(updated_products)
 
-print(produtos_atualizados)
+# I could also do it this way — but it is not necessarily better,
+# because the code starts becoming too cluttered.
+#
+# Lambda is only worth it when:
+# compactness DOES NOT hurt clarity.
+
+updated_products = []
+
+for product in products:
+    name, category, price = product
+
+    updated_products.append(
+        (
+            name,
+            category,
+            price,
+            (
+                lambda price, category:
+                price * 0.85 if category == 'technology'
+                else price * 0.95
+            )(price, category)
+        )
+    )
+
+print(updated_products)
