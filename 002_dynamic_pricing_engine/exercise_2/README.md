@@ -1,4 +1,4 @@
-# Exercise 69 — Contextual Transformations
+# Exercise 2 — Contextual Transformations
 
 This exercise introduced the first conditional lambda transformation.
 
