@@ -1,63 +1,75 @@
 # ==================================================================================================
-# 2. Processamento de funcionários por setor (RH)
+# 2. Employee Processing by Department (HR)
 # ==================================================================================================
 #
-# Após o reajuste geral,
-# a empresa percebeu que cada setor
-# precisa de uma política salarial diferente.
+# After the general salary adjustment,
+# the company realized that each department
+# requires a different salary policy.
 #
-# Agora cada funcionário possui:
+# Each employee now contains:
 #
-# - nome
-# - setor
-# - salário
+# - name
+# - department
+# - salary
 #
-# Dados:
+# Data:
 #
-# funcionarios = [
-#     ('Ana', 'tecnologia', 5000),
-#     ('Carlos', 'financeiro', 4000),
-#     ('Fernanda', 'tecnologia', 6200),
-#     ('Marina', 'rh', 3500),
-#     ('João', 'financeiro', 4500)
+# employees = [
+#     ('Ana', 'technology', 5000),
+#     ('Carlos', 'finance', 4000),
+#     ('Fernanda', 'technology', 6200),
+#     ('Marina', 'hr', 3500),
+#     ('João', 'finance', 4500)
 # ]
 #
-# Novas regras:
+# New rules:
 #
-# - tecnologia → 12% reajuste
-# - financeiro → 7% reajuste
-# - rh → 5% reajuste
+# - technology → 12% adjustment
+# - finance → 7% adjustment
+# - hr → 5% adjustment
 #
-# O sistema deve gerar:
+# The system must generate:
 #
-# - uma nova estrutura contendo:
-#     - nome
-#     - setor
-#     - salário original
-#     - salário reajustado
+# - a new structure containing:
+#     - name
+#     - department
+#     - original salary
+#     - adjusted salary
 #
-# Regras importantes:
+# Important rules:
 #
-# - o processamento deve ocorrer usando map
+# - processing must occur using map()
 #
-# Exibir:
+# Display:
 #
-# - relatório atualizado de salários
-#
-funcionarios = [
-    ('Ana', 'tecnologia', 5000),
-    ('Carlos', 'financeiro', 4000),
-    ('Fernanda', 'tecnologia', 6200),
-    ('Marina', 'rh', 3500),
-    ('João', 'financeiro', 4500)
+# - updated salary report
+
+
+employees = [
+    ('Ana', 'technology', 5000),
+    ('Carlos', 'finance', 4000),
+    ('Fernanda', 'technology', 6200),
+    ('Marina', 'hr', 3500),
+    ('João', 'finance', 4500)
 ]
 
-regras = {
-    'tecnologia': lambda salario: round(salario * 1.12, 2),
-    'financeiro': lambda salario: round(salario * 1.07, 2),
-    'rh': lambda salario: round(salario * 1.05, 2)
+rules = {
+    'technology': lambda salary: round(salary * 1.12, 2),
+    'finance': lambda salary: round(salary * 1.07, 2),
+    'hr': lambda salary: round(salary * 1.05, 2)
 }
 
-salarios_atualizados = list(map(lambda funcionario: (funcionario[0], funcionario[1], funcionario[2], regras[funcionario[1]](funcionario[2])), funcionarios))
+updated_salaries = list(
+    map(
+        lambda employee:
+        (
+            employee[0],
+            employee[1],
+            employee[2],
+            rules[employee[1]](employee[2])
+        ),
+        employees
+    )
+)
 
-print(salarios_atualizados)
+print(updated_salaries)
