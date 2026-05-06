@@ -1,133 +1,161 @@
 # ==================================================================================================
-# 77. MINI DESAFIO — Plataforma configurável de processamento salarial
+# 77. Configurable Salary Processing Platform (HR)
 # ==================================================================================================
 #
-# A empresa decidiu transformar o sistema em uma plataforma flexível de processamento de RH.
+# The company decided to transform the HR system
+# into a flexible employee-processing platform.
 #
-# Agora o sistema deve permitir:
+# The system must now support:
 #
-# - adicionar novas etapas de processamento
-# - trocar regras sem alterar o fluxo principal
-# - reutilizar o mesmo pipeline para diferentes políticas internas
+# - adding new processing stages
+# - changing rules without modifying the main flow
+# - reusing the same pipeline for different internal policies
 #
 #
-# Dados:
+# Data:
 #
-# funcionarios = [
-#     ('Ana', 'tecnologia', 5000),
-#     ('Carlos', 'financeiro', 4000),
-#     ('Fernanda', 'tecnologia', 6200),
-#     ('Marina', 'rh', 3500),
-#     ('Rafael', 'financeiro', 8000)
+# employees = [
+#     ('Ana', 'technology', 5000),
+#     ('Carlos', 'finance', 4000),
+#     ('Fernanda', 'technology', 6200),
+#     ('Marina', 'hr', 3500),
+#     ('Rafael', 'finance', 8000)
 # ]
 #
 #
-# O sistema possuirá:
+# The system will contain:
 #
-# - etapas de reajuste
-# - etapas de bônus
-# - etapas de classificação
-# - etapas de auditoria salarial
+# - salary adjustment stages
+# - bonus stages
+# - classification stages
+# - salary audit stages
 #
 #
-# Novas regras:
+# New rules:
 #
-# - funcionários acima de R$9000 após processamento:
-#     devem receber status:
-#         'auditoria'
+# - employees above $9000 after processing:
+#     must receive status:
+#         'audit'
 #
-# - os demais:
-#     recebem status:
+# - all others:
+#     receive status:
 #         'normal'
 #
 #
-# Regras importantes:
+# Important rules:
 #
-# - o pipeline principal NÃO pode conter regras fixas de negócio
+# - the main pipeline CANNOT contain fixed business rules
 #
-# - as transformações devem ser configuráveis
+# - transformations must be configurable
 #
-# - o sistema deve permitir adicionar novas etapas
-#   sem reescrever o fluxo principal
+# - the system must support adding new stages
+#   without rewriting the main flow
 #
-# - o processamento deve continuar utilizando map
-#
-#
-# O relatório final deve conter:
-#
-# - nome
-# - setor
-# - salário original
-# - salário final
-# - bônus
-# - classificação
-# - status operacional
+# - processing must continue using map()
 #
 #
-# Exibir:
+# The final report must contain:
 #
-# - relatório corporativo completo
+# - name
+# - department
+# - original salary
+# - final salary
+# - bonus
+# - classification
+# - operational status
+#
+#
+# Display:
+#
+# - complete corporate employee report
 
 
-funcionarios = [
-    ('Ana', 'tecnologia', 5000),
-    ('Carlos', 'financeiro', 4000),
-    ('Fernanda', 'tecnologia', 6200),
-    ('Marina', 'rh', 3500),
-    ('Rafael', 'financeiro', 8000)
+employees = [
+    ('Ana', 'technology', 5000),
+    ('Carlos', 'finance', 4000),
+    ('Fernanda', 'technology', 6200),
+    ('Marina', 'hr', 3500),
+    ('Rafael', 'finance', 8000)
 ]
 
-regras_reajuste = {
-    'tecnologia': lambda salario: round(salario * 1.12, 2),
-    'financeiro': lambda salario: round(salario * 1.07, 2),
-    'rh': lambda salario: round(salario * 1.05, 2)
+adjustment_rules = {
+    'technology': lambda salary: round(salary * 1.12, 2),
+    'finance': lambda salary: round(salary * 1.07, 2),
+    'hr': lambda salary: round(salary * 1.05, 2)
 }
 
-etapas = {
-    'reajuste': lambda setor, salario: regras_reajuste[setor](salario),
-    'bonus': lambda salario: salario + 1500 if salario > 6000 else salario + 800,
-    'classificacao': lambda salario: 'senior' if salario > 7000 else 'pleno' if 4000 <= salario <= 7000 else 'junior',
-    'auditoria': lambda salario: 'auditoria' if salario > 9000 else 'normal'
+stages = {
+    'adjustment': lambda department, salary: adjustment_rules[department](salary),
+    'bonus': lambda salary: salary + 1500 if salary > 6000 else salary + 800,
+    'classification': lambda salary: 'senior' if salary > 7000 else 'mid-level' if 4000 <= salary <= 7000 else 'junior',
+    'audit': lambda salary: 'audit' if salary > 9000 else 'normal'
 }
 
-funcionarios_reajuste = list(map(lambda funcionario: (funcionario[0],
-                                                         funcionario[1],
-                                                         funcionario[2],
-                                                         etapas['reajuste'](funcionario[1], funcionario[2])
-                                                         ),
-                                    funcionarios))
+employees_adjustment = list(
+    map(
+        lambda employee:
+        (
+            employee[0],
+            employee[1],
+            employee[2],
+            stages['adjustment'](employee[1], employee[2])
+        ),
+        employees
+    )
+)
 
-print(funcionarios_reajuste)
+print(employees_adjustment)
 
-funcionarios_bonus = list(map(lambda funcionario: (funcionario[0],
-                                                        funcionario[1],
-                                                        funcionario[2],
-                                                        funcionario[3],
-                                                        etapas['bonus'](funcionario[3])
-                                                         ),
-                                    funcionarios_reajuste))
 
-print(funcionarios_bonus)
+employees_bonus = list(
+    map(
+        lambda employee:
+        (
+            employee[0],
+            employee[1],
+            employee[2],
+            employee[3],
+            stages['bonus'](employee[3])
+        ),
+        employees_adjustment
+    )
+)
 
-funcionarios_classificacao = list(map(lambda funcionario: (funcionario[0],
-                                                        funcionario[1],
-                                                        funcionario[2],
-                                                        funcionario[3],
-                                                        funcionario[4],
-                                                        etapas['classificacao'](funcionario[4])
-                                                         ),
-                                    funcionarios_bonus))
+print(employees_bonus)
 
-print(funcionarios_classificacao)
 
-funcionarios_auditoria = list(map(lambda funcionario: (funcionario[0],
-                                                        funcionario[1],
-                                                        funcionario[2],
-                                                        funcionario[3],
-                                                        funcionario[4],
-                                                        funcionario[5],
-                                                        etapas['auditoria'](funcionario[4])
-                                                         ),
-                                    funcionarios_classificacao))
+employees_classification = list(
+    map(
+        lambda employee:
+        (
+            employee[0],
+            employee[1],
+            employee[2],
+            employee[3],
+            employee[4],
+            stages['classification'](employee[4])
+        ),
+        employees_bonus
+    )
+)
 
-print(funcionarios_auditoria)
+print(employees_classification)
+
+
+employees_audit = list(
+    map(
+        lambda employee:
+        (
+            employee[0],
+            employee[1],
+            employee[2],
+            employee[3],
+            employee[4],
+            employee[5],
+            stages['audit'](employee[4])
+        ),
+        employees_classification
+    )
+)
+
+print(employees_audit)
