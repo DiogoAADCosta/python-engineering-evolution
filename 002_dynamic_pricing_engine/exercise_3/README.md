@@ -40,3 +40,11 @@ The exercise also introduced:
 - separation between processing flow and transformation logic
 
 This was one of the first moments where lambda usage became a design decision instead of just a syntax feature.
+
+Another important limitation became visible during this exercise:
+
+the current implementation only works well with a small number of categories.
+
+As more categories and business rules are introduced, the conditional logic would quickly become harder to maintain and scale.
+
+This was one of the first moments where scalability limitations started becoming visible even in otherwise functional code.
