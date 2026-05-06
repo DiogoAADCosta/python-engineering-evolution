@@ -7,7 +7,7 @@ The initial implementation relied on direct conditional flow:
 - if campaign == ...
 - elif campaign == ...
 
-While functional, this approach quickly started becoming harder to scale as more campaigns and business rules were introduced.
+While functional, this approach quickly became harder to scale as more campaigns and business rules were introduced.
 
 To improve organization, the system evolved into a rule-based structure:
 
@@ -32,14 +32,14 @@ A major insight from this exercise was realizing that:
 - systems can become configurable through external rule structures
 - conditions and actions can operate independently
 
-Another important realization from this exercise was the structural similarity with the rule-processing architecture used in the Guitar Diagnostic System.
+Another important realization was the structural similarity with the rule-processing architecture used in the Guitar Diagnostic System.
 
 Both systems rely on:
 - conditional evaluation
 - contextual actions
 - configurable execution flows
 
-This exercise helped reinforce the idea that the same architectural patterns can emerge naturally across completely different domains.
+This exercise reinforced the idea that similar architectural patterns can naturally emerge across completely different domains.
 
 Related project:
 [Guitar Diagnostic System](https://github.com/DiogoAADCosta/guitar-diagnostic-system)
@@ -48,4 +48,4 @@ This exercise marked the transition from:
 - simple lambda transformations
 
 to:
-- configurable processing systems.
+- configurable processing systems
