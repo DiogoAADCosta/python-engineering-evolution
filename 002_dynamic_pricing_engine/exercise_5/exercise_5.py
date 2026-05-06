@@ -118,8 +118,12 @@ rules = [
     )
 ]
 
-# If a new campaign is created, just need to add its rules in the list "rules" and its name here in active_campaign.
-# Might as well simply remove old campaigns from active_campaigns if they are not active
+# If a new campaign is created,
+# its rules only need to be added to the "rules" list
+# and its name added to "active_campaigns".
+#
+# Old campaigns can simply be removed from
+# "active_campaigns" when inactive.
 active_campaigns = [  
     'black_friday',
     'christmas',
