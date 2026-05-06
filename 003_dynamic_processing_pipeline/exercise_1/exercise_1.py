@@ -1,29 +1,31 @@
 # ==================================================================================================
-# 1. Atualização automática de salários (RH)
+# 1. Automatic Salary Adjustment (HR)
 # ==================================================================================================
 #
-# O setor de RH iniciou um reajuste salarial anual.
+# The HR department started the annual salary adjustment process.
 #
-# O sistema possui uma lista contendo os salários atuais:
+# The system contains a list of current salaries:
 #
-# salarios = [2500, 3200, 1800, 5000, 4100]
+# salaries = [2500, 3200, 1800, 5000, 4100]
 #
-# A empresa definiu:
+# The company defined:
 #
-# - reajuste de 8% para todos os funcionários
+# - an 8% salary increase for all employees
 #
-# O sistema deve gerar:
+# The system must generate:
 #
-# - uma nova lista contendo os salários atualizados
+# - a new list containing the updated salaries
 #
-# Exibir:
+# Display:
 #
-# - salários originais
-# - salários reajustados
+# - original salaries
+# - adjusted salaries
 
-salarios = [2500, 3200, 1800, 5000, 4100]
 
-salarios_atualizados = list(map(lambda salario: round(salario * 1.08), salarios))
+salaries = [2500, 3200, 1800, 5000, 4100]
 
-print(salarios)
-print(salarios_atualizados)
+updated_salaries = list(
+    map(lambda salary: round(salary * 1.08), salaries))
+
+print(salaries)
+print(updated_salaries)
