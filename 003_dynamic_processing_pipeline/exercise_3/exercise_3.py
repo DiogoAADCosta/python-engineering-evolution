@@ -1,119 +1,150 @@
 # ==================================================================================================
-# 3. Pipeline de benefícios corporativos (RH)
+# 76. Corporate Benefits Pipeline (HR)
 # ==================================================================================================
 #
-# Após os reajustes, a empresa decidiu automatizar também o processamento de benefícios.
+# After the salary adjustments, the company decided to automate
+# employee benefits processing as well.
 #
-# Agora cada funcionário deve passar por:
+# Each employee must now go through:
 #
-# 1. reajuste salarial
-# 2. cálculo de bônus
-# 3. classificação de faixa salarial
+# 1. salary adjustment
+# 2. bonus calculation
+# 3. salary classification
 #
-# Dados:
+# Data:
 #
-# funcionarios = [
-#     ('Ana', 'tecnologia', 5000),
-#     ('Carlos', 'financeiro', 4000),
-#     ('Fernanda', 'tecnologia', 6200),
-#     ('Marina', 'rh', 3500)
+# employees = [
+#     ('Ana', 'technology', 5000),
+#     ('Carlos', 'finance', 4000),
+#     ('Fernanda', 'technology', 6200),
+#     ('Marina', 'hr', 3500)
 # ]
 #
-# Regras:
 #
 # --------------------------------------------------------------------------------
-# Reajuste salarial
+# Salary adjustment
 # --------------------------------------------------------------------------------
 #
-# - tecnologia → 12%
-# - financeiro → 7%
-# - rh → 5%
-#
-#
-# --------------------------------------------------------------------------------
-# Bônus anual
-# --------------------------------------------------------------------------------
-#
-# - salários acima de R$6000:
-#     bônus de R$1500
-#
-# - demais funcionários:
-#     bônus de R$800
+# - technology → 12%
+# - finance → 7%
+# - hr → 5%
 #
 #
 # --------------------------------------------------------------------------------
-# Classificação salarial
+# Annual bonus
 # --------------------------------------------------------------------------------
 #
-# - acima de R$7000:
+# - salaries above $6000:
+#     $1500 bonus
+#
+# - all other employees:
+#     $800 bonus
+#
+#
+# --------------------------------------------------------------------------------
+# Salary classification
+# --------------------------------------------------------------------------------
+#
+# - above $7000:
 #     senior
 #
-# - entre R$4000 e R$7000:
-#     pleno
+# - between $4000 and $7000:
+#     mid-level
 #
-# - abaixo de R$4000:
+# - below $4000:
 #     junior
 #
 #
-# O sistema deve:
+# The system must:
 #
-# - processar os funcionários em etapas
-# - utilizar map para transformar os dados progressivamente
-#
-#
-# O relatório final deve conter:
-#
-# - nome
-# - setor
-# - salário original
-# - salário reajustado
-# - bônus
-# - classificação
+# - process employees in stages
+# - use map() to progressively transform the data
 #
 #
-# Exibir:
+# The final report must contain:
 #
-# - relatório completo de funcionários
+# - name
+# - department
+# - original salary
+# - adjusted salary
+# - bonus
+# - classification
 #
-funcionarios = [
-    ('Ana', 'tecnologia', 5000),
-    ('Carlos', 'financeiro', 4000),
-    ('Fernanda', 'tecnologia', 6200),
-    ('Marina', 'rh', 3500)
+#
+# Display:
+#
+# - complete employee report
+
+
+employees = [
+    ('Ana', 'technology', 5000),
+    ('Carlos', 'finance', 4000),
+    ('Fernanda', 'technology', 6200),
+    ('Marina', 'hr', 3500)
 ]
 
-regras_reajuste = {
-    'tecnologia': lambda salario: round(salario * 1.12, 2),
-    'financeiro': lambda salario: round(salario * 1.07, 2),
-    'rh': lambda salario: round(salario * 1.05, 2)
+adjustment_rules = {
+    'technology': lambda salary: round(salary * 1.12, 2),
+    'finance': lambda salary: round(salary * 1.07, 2),
+    'hr': lambda salary: round(salary * 1.05, 2)
 }
 
-funcionarios_reajuste = list(map(lambda funcionario: (funcionario[0],
-                                                         funcionario[1],
-                                                         funcionario[2],
-                                                         regras_reajuste[funcionario[1]](funcionario[2])
-                                                         ),
-                                    funcionarios))
+employees_adjustment = list(
+    map(
+        lambda employee:
+        (
+            employee[0],
+            employee[1],
+            employee[2],
+            adjustment_rules[employee[1]](employee[2])
+        ),
+        employees
+    )
+)
 
-print(funcionarios_reajuste)
+print(employees_adjustment)
 
-funcionarios_bonus = list(map(lambda funcionario: (funcionario[0],
-                                                        funcionario[1],
-                                                        funcionario[2],
-                                                        funcionario[3],
-                                                        (funcionario[3] + 1500 if funcionario[3] > 6000 else funcionario[3] + 800)
-                                                         ),
-                                    funcionarios_reajuste))
 
-print(funcionarios_bonus)
+employees_bonus = list(
+    map(
+        lambda employee:
+        (
+            employee[0],
+            employee[1],
+            employee[2],
+            employee[3],
+            (
+                employee[3] + 1500
+                if employee[3] > 6000
+                else employee[3] + 800
+            )
+        ),
+        employees_adjustment
+    )
+)
 
-funcionarios_classificacao = list(map(lambda funcionario: (funcionario[0],
-                                                        funcionario[1],
-                                                        funcionario[2],
-                                                        funcionario[3],
-                                                        funcionario[4],
-                                                        'senior' if funcionario[4] > 7000 else 'pleno' if 4000 <= funcionario[4] <= 7000 else 'junior'
-                                                         ),
-                                    funcionarios_bonus))
+print(employees_bonus)
 
-print(funcionarios_classificacao)
+
+employees_classification = list(
+    map(
+        lambda employee:
+        (
+            employee[0],
+            employee[1],
+            employee[2],
+            employee[3],
+            employee[4],
+            (
+                'senior'
+                if employee[4] > 7000
+                else 'mid-level'
+                if 4000 <= employee[4] <= 7000
+                else 'junior'
+            )
+        ),
+        employees_bonus
+    )
+)
+
+print(employees_classification)
