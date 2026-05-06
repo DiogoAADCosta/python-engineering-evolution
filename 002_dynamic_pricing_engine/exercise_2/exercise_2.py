@@ -1,30 +1,31 @@
 # ==================================================================================================
-# 2. Campanha promocional por faixa de preço
+# 2. Promotional Campaign by Price Range
 # ==================================================================================================
 #
-# Após a primeira campanha,
-# a empresa percebeu que produtos mais baratos
-# precisam de descontos maiores para gerar conversão.
+# After the first campaign,
+# the company realized that cheaper products
+# need larger discounts to improve conversion.
 #
-# Dados:
+# Data:
 #
-# precos = [120, 80, 250, 40, 310]
+# prices = [120, 80, 250, 40, 310]
 #
-# Novas regras:
+# New rules:
 #
-# - produtos abaixo de R$100 recebem 20% de desconto
-# - produtos acima ou iguais a R$100 recebem 10%
+# - products below R$100 receive a 20% discount
+# - products equal to or above R$100 receive a 10% discount
 #
-# O sistema deve gerar:
+# The system must generate:
 #
-# - uma nova lista contendo os preços finais
+# - a new list containing the final prices
 #
-# Exibir:
-# - preços atualizados
+# Display:
+# - updated prices
 #
-precos = [120, 80, 250, 40, 310]
 
-desconto = lambda x: x * 0.8 if x < 100 else x * 0.9
-precos_atualizados = [desconto(preco) for preco in precos]
+prices = [120, 80, 250, 40, 310]
 
-print(precos_atualizados)
+discount = lambda x: x * 0.8 if x < 100 else x * 0.9
+updated_prices = [discount(price) for price in prices]
+
+print(updated_prices)
