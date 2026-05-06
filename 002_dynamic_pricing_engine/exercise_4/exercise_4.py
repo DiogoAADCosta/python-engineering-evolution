@@ -1,85 +1,133 @@
 # ==================================================================================================
-# 71. Sistema de campanhas sazonais
+# 4. Seasonal Campaign System
 # ==================================================================================================
 #
-# A empresa agora trabalha com campanhas diferentes
-# dependendo da época do ano.
+# The company now works with different campaigns
+# depending on the season of the year.
 #
-# Cada campanha possui uma regra própria de desconto.
+# Each campaign has its own discount rules.
 #
-# Dados:
+# Data:
 #
-# produtos = [
-#     ('Notebook', 'tecnologia', 3500),
-#     ('Mouse', 'tecnologia', 120),
-#     ('Cadeira', 'moveis', 900),
-#     ('Mesa', 'moveis', 1200)
+# products = [
+#     ('Notebook', 'technology', 3500),
+#     ('Mouse', 'technology', 120),
+#     ('Chair', 'furniture', 900),
+#     ('Desk', 'furniture', 1200)
 # ]
 #
-# campanha = 'black_friday'
+# campaign = 'black_friday'
 #
-# Regras:
+# Rules:
 #
 # - black_friday:
-#     tecnologia → 30%
-#     móveis → 15%
+#     technology → 30%
+#     furniture → 15%
 #
-# - natal:
-#     tecnologia → 20%
-#     móveis → 10%
+# - christmas:
+#     technology → 20%
+#     furniture → 10%
 #
-# O sistema deve aplicar automaticamente:
+# The system must automatically apply:
 #
-# - a regra correta da campanha atual
+# - the correct rule for the current campaign
 #
-# Exibir:
-# - produtos atualizados
-# - campanha aplicada
+# Display:
+# - updated products
+# - applied campaign
 
-# # Solução 1
-produtos = [
-    ('Notebook', 'tecnologia', 3500),
-    ('Mouse', 'tecnologia', 120),
-    ('Cadeira', 'moveis', 900),
-    ('Mesa', 'moveis', 1200)
+
+# Solution 1
+
+products = [
+    ('Notebook', 'technology', 3500),
+    ('Mouse', 'technology', 120),
+    ('Chair', 'furniture', 900),
+    ('Desk', 'furniture', 1200)
 ]
 
-produtos_atualizados = []
-campanha = 'natal'
+updated_products = []
 
-for produto in produtos:
-    nome, categoria, preco = produto
-    if campanha == 'black_friday':
-        produtos_atualizados.append((nome, categoria, preco, (lambda preco, categoria: preco * 0.7 if categoria == 'tecnologia' else preco * 0.85)(preco, categoria)))
-    elif campanha == 'natal':
-        produtos_atualizados.append((nome, categoria, preco, (lambda preco, categoria: preco * 0.8 if categoria == 'tecnologia' else preco * 0.9)(preco, categoria)))
+campaign = 'christmas'
 
-for produto in produtos_atualizados:
-    print(produto)
+for product in products:
+    name, category, price = product
+
+    if campaign == 'black_friday':
+        updated_products.append(
+            (
+                name,
+                category,
+                price,
+                (
+                    lambda price, category:
+                    price * 0.7 if category == 'technology'
+                    else price * 0.85
+                )(price, category)
+            )
+        )
+
+    elif campaign == 'christmas':
+        updated_products.append(
+            (
+                name,
+                category,
+                price,
+                (
+                    lambda price, category:
+                    price * 0.8 if category == 'technology'
+                    else price * 0.9
+                )(price, category)
+            )
+        )
+
+for product in updated_products:
+    print(product)
 
 
-# # Solução 2 (Separando as regras com lambdas)
-produtos = [
-    ('Notebook', 'tecnologia', 3500),
-    ('Mouse', 'tecnologia', 120),
-    ('Cadeira', 'moveis', 900),
-    ('Mesa', 'moveis', 1200)
+# Solution 2 (Separating rules using lambdas)
+
+products = [
+    ('Notebook', 'technology', 3500),
+    ('Mouse', 'technology', 120),
+    ('Chair', 'furniture', 900),
+    ('Desk', 'furniture', 1200)
 ]
 
-regras = [
-    (lambda campanha: campanha == 'black_friday', lambda preco, categoria: preco * 0.7 if categoria == 'tecnologia' else preco * 0.85),
-    (lambda campanha: campanha == 'natal', lambda preco, categoria: preco * 0.8 if categoria == 'tecnologia' else preco * 0.9)
+rules = [
+    (
+        lambda campaign: campaign == 'black_friday',
+        lambda price, category:
+        price * 0.7 if category == 'technology'
+        else price * 0.85
+    ),
+
+    (
+        lambda campaign: campaign == 'christmas',
+        lambda price, category:
+        price * 0.8 if category == 'technology'
+        else price * 0.9
+    )
 ]
 
-produtos_atualizados = []
-campanha = 'natal'
+updated_products = []
 
-for produto in produtos:
-    nome, categoria, preco = produto
-    for condicao, acao in regras:
-        if condicao(campanha):
-            produtos_atualizados.append((nome, categoria, preco, (acao(preco, categoria))))
+campaign = 'christmas'
 
+for product in products:
+    name, category, price = product
 
-for produto in produtos_atualizados:
-    print(produto)
+    for condition, action in rules:
+
+        if condition(campaign):
+            updated_products.append(
+                (
+                    name,
+                    category,
+                    price,
+                    action(price, category)
+                )
+            )
+
+for product in updated_products:
+    print(product)
