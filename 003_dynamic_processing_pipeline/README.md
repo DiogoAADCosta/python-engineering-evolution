@@ -1,4 +1,5 @@
 # 003 — Dinamic Processing Pipelines
+From functional transformations to dynamic orchestration challenges.
 
 ## Overview
 
