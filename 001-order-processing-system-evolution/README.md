@@ -1,4 +1,5 @@
 # 001 — Order Processing System Evolution
+From isolated functions to structured processing workflows.
 
 ## Overview
 
