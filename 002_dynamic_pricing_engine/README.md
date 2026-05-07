@@ -1,4 +1,5 @@
 # 002 — Dynamic Pricing Engine
+From simple transformations to configurable rule systems.
 
 ## Overview
 
